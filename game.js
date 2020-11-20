@@ -13,7 +13,15 @@
 */
 
 // Call checkInput() when the start button is clicked
-document.getElementById("startButton").onclick = checkInput;
+document.getElementById("startButton").onclick = runGame;
+
+function runGame() {
+   let numSymbols = checkInput();
+   generateBoard(numSymbols);
+   let cardArray = assignCards(numSymbols * 2);
+
+   console.log(cardArray);
+}
 
 // gets the chosen number of symbols and sends the value to generateBoard()
 function checkInput() {
@@ -21,9 +29,9 @@ function checkInput() {
   let numSymbols = document.getElementById("numSymbols").value;
 
   // Forces value to be between two and eight
-  if (numSymbols < 2) generateBoard(2);
-  else if (numSymbols > 8) generateBoard(8);
-  else generateBoard(numSymbols);
+  if (numSymbols < 2) return 2;
+  else if (numSymbols > 8)  return 8;
+  else return numSymbols;
 
   // Changes the css visibility property of the form to hidden
   document.getElementById("startForm").style.visibility = "hidden";
@@ -72,8 +80,6 @@ function generateBoard(numSymbols) {
   document.getElementById("game").appendChild(gameBoard);
   gameBoard.style.display = "block";   // Display the gameboard as block
   gameBoard.style.width = "100%";      // Give the gameboard 100% width
-
-  assignCards(numSymbols);
 }
 
 // Function to create an array of cards with a symbol linked to each one
@@ -93,6 +99,8 @@ function assignCards(numSymbols) {
          symbol: symbolArray[i-1]
       });
    }
+
+   return cardArray; // Return the card array
 }
 
 // Function to shuffle inputted array
