@@ -76,5 +76,32 @@ function generateBoard(numSymbols) {
   assignCards(numSymbols);
 }
 
+// Function to create an array of cards with a symbol linked to each one
 function assignCards(numSymbols) {
+   let cardArray = [];  // Initialize an empty card array
+   // Create an array of symbols (up to 16) and cut it to fit available cards
+   let symbolArray = ["!", "!", "@", "@", "#", "#", "$", "$", "%", "%", "^", "^", "&", "&", "*", "*"];
+   symbolArray = symbolArray.slice(0, numSymbols);
+   
+   // Shuffle the array
+   symbolArray = shuffleArray(symbolArray);
+
+   // Fill up the card array
+   for (let i = 1; i <= symbolArray.length; i++) {
+      cardArray.push({
+         card: "card" + i,
+         symbol: symbolArray[i-1]
+      });
+   }
+}
+
+// Function to shuffle inputted array
+function shuffleArray(symbolArray) {
+   // Using the Durstenfeld Shuffle we can randomize the array of symbols
+   for(let i = symbolArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [symbolArray[i], symbolArray[j]] = [symbolArray[j], symbolArray[i]];
+   }
+   
+   return symbolArray;  // Return the shuffled array
 }
