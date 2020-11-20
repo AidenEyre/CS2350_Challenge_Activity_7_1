@@ -19,8 +19,15 @@ function runGame() {
    let numSymbols = checkInput();
    generateBoard(numSymbols);
    let cardArray = assignCards(numSymbols * 2);
+   let GameWin = false;
+
+   while (GameWin === false) {
+      handleClicks(cardArray);
+      checkCards(cardArray);
+   }
 
    console.log(cardArray);
+
 }
 
 // gets the chosen number of symbols and sends the value to generateBoard()
@@ -96,7 +103,8 @@ function assignCards(numSymbols) {
    for (let i = 1; i <= symbolArray.length; i++) {
       cardArray.push({
          card: "card" + i,
-         symbol: symbolArray[i-1]
+         symbol: symbolArray[i-1],
+         clicked: false
       });
    }
 
@@ -112,4 +120,20 @@ function shuffleArray(symbolArray) {
    }
    
    return symbolArray;  // Return the shuffled array
+}
+
+function handleClicks(cardArray) {
+   let clicks  = 0;
+
+   for (let i = 0; i < cardArray.length; i++) {
+      document.getElementById(cardArray[i].card).addEventListener("click", () => {
+         document.getElementById(cardArray[i].card).innerHTML = cardArray[i].symbol;
+         cardArray[i].clicked = true;
+         clicks++;
+
+         if (clicks === 2) {
+            return
+         }
+      })
+   }
 }
