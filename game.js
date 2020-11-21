@@ -30,13 +30,13 @@ function checkInput() {
   // Initialize variable with inputted value
   let numSymbols = document.getElementById("numSymbols").value;
 
+  // Changes the css visibility property of the form to hidden
+  document.getElementById("startForm").style.visibility = "hidden";
+
   // Forces value to be between two and eight
   if (numSymbols < 2) return 2;
   else if (numSymbols > 8) return 8;
   else return numSymbols;
-
-  // Changes the css visibility property of the form to hidden
-  document.getElementById("startForm").style.visibility = "hidden";
 }
 
 // Generates a gameboard based off of the number of symbols chosen
