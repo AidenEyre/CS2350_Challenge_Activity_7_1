@@ -155,12 +155,15 @@ function handleClicks(cardArray) {
       // If the cards don't match change the card styles back 
       if (index.length > 1 && index.length % 2 == 0 &&
          (checkCards(cardArray, index[index.length - 2], index[index.length - 1]) === false)) {
-          document.getElementById(cardArray[index[index.length - 2]].card).innerHTML = "";
-          document.getElementById(cardArray[index[index.length - 2]].card).style.backgroundColor = "gray";
-            cardArray[index[index.length - 2]].clicked = false;
-          document.getElementById(cardArray[index[index.length - 1]].card).innerHTML = "";
-          document.getElementById(cardArray[index[index.length - 1]].card).style.backgroundColor = "gray";
-            cardArray[index[index.length - 1]].clicked = false;
+            // Set a timeout so user can see both flipped cards for 500ms
+            setTimeout(() => {
+               document.getElementById(cardArray[index[index.length - 2]].card).innerHTML = "";
+               document.getElementById(cardArray[index[index.length - 2]].card).style.backgroundColor = "gray";
+               cardArray[index[index.length - 2]].clicked = false;
+               document.getElementById(cardArray[index[index.length - 1]].card).innerHTML = "";
+               document.getElementById(cardArray[index[index.length - 1]].card).style.backgroundColor = "gray";
+               cardArray[index[index.length - 1]].clicked = false;
+            }, 500);
       }
     });
   }
