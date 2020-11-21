@@ -14,6 +14,7 @@
 
 // Call checkInput() when the start button is clicked
 document.getElementById("startButton").onclick = runGame;
+styles();
 
 function runGame() {
   let numSymbols = checkInput();
@@ -28,7 +29,7 @@ function checkInput() {
   let numSymbols = document.getElementById("numSymbols").value;
 
   // Changes the css visibility property of the form to hidden
-  document.getElementById("startForm").style.visibility = "hidden";
+  document.getElementById("startForm").style.display = "none";
 
   // Forces value to be between two and eight
   if (numSymbols < 2) return 2;
@@ -61,13 +62,7 @@ function generateBoard(numSymbols) {
     for (let j = 1; j <= numSymbols / rows; j++) {
       let card = document.createElement("td"); // Create table cell
       card.id = "card" + index; // Give the cell its corresponding index
-      card.style.backgroundColor = "gray"; // Style the block red
-      card.style.display = "inline-block"; //  Display an inline-block
 
-      // Width and head set to 5em with 0.1em margins
-      card.style.width = "5em";
-      card.style.height = "5em";
-      card.style.margin = "0.1em";
       tr.appendChild(card); // Add the table cell to the table row
       index++; // Up the index to give the next card an id
     }
@@ -77,8 +72,6 @@ function generateBoard(numSymbols) {
 
   // Addd the table to our game div
   document.getElementById("game").appendChild(gameBoard);
-  gameBoard.style.display = "block"; // Display the gameboard as block
-  gameBoard.style.width = "100%"; // Give the gameboard 100% width
 }
 
 // Function to create an array of cards with a symbol linked to each one
@@ -141,11 +134,11 @@ function handleClicks(cardArray) {
   for (let i = 0; i < cardArray.length; i++) {
     document.getElementById(cardArray[i].card).addEventListener("click", () => {
       // If cards have not been clicked, run this code
-      if (cardArray[i].clicked == false) {
+      if (cardArray[i].clicked == false && index[index.length-1] != i) {
          document.getElementById(cardArray[i].card).innerHTML =
          cardArray[i].symbol; // Add the card symbol
          document.getElementById(cardArray[i].card).style.backgroundColor =
-         "rgb(193, 247, 207)"; // Change card color
+         "#23D9B7"; // Change card color
          cardArray[i].clicked = true; // Change the object clicked property to true
          index.push(i); // Add the clicked card index to the index array
       }
@@ -156,10 +149,10 @@ function handleClicks(cardArray) {
             // Set a timeout so user can see both flipped cards for 500ms
             setTimeout(() => {
                document.getElementById(cardArray[index[index.length - 2]].card).innerHTML = "";
-               document.getElementById(cardArray[index[index.length - 2]].card).style.backgroundColor = "gray";
+               document.getElementById(cardArray[index[index.length - 2]].card).style.backgroundColor = "#BF6D65";
                cardArray[index[index.length - 2]].clicked = false;
                document.getElementById(cardArray[index[index.length - 1]].card).innerHTML = "";
-               document.getElementById(cardArray[index[index.length - 1]].card).style.backgroundColor = "gray";
+               document.getElementById(cardArray[index[index.length - 1]].card).style.backgroundColor = "#BF6D65";
                cardArray[index[index.length - 1]].clicked = false;
             }, 500);
          }
@@ -191,6 +184,89 @@ function endGame(cardsClicked) {
    // Create and style a final message
    let endMessage = document.createElement("h1");
    endMessage.innerHTML = "You won in " + cardsClicked + " guesses! Thanks for playing!";
-   endMessage.style.margin = "auto";
+   endMessage.style.margin = "10% auto";
    document.getElementById("game").appendChild(endMessage);
+}
+
+// Loads up css styles when called
+function styles() {
+   // Create a style variable to hold css styles
+   let style = document.createElement("style");
+
+   // Add the style node to the document head
+   document.head.appendChild(style);
+
+   // Insert css rules into it
+   style.sheet.insertRule(
+   "html {  \
+       background-color: #6B98F2; \
+       color: #311273; \
+       font-family: Georgia, serif; \
+       }", 0);
+
+   style.sheet.insertRule(
+   "h1 {  \
+         margin-top: 5vw; \
+         text-align: center; \
+         font-size: 2.6em; \
+         }", 1);
+
+   style.sheet.insertRule(
+      "#startForm {  \
+            text-align: center; \
+            font-size: 1.5em; \
+            padding: 0.6em; \
+            border: 5px solid #311273; \
+            width: 30%; \
+            margin: auto; \
+            }", 2);
+
+   style.sheet.insertRule(
+      "table {  \
+         margin: auto; \
+         }", 3);
+
+   style.sheet.insertRule(
+      "input {  \
+            background-color: #6B98F2; \
+            color: #311273; \
+            font-family: Georgia, serif; \
+            font-size: 1.5em; \
+            width: 1.5em; \
+            outline: none; \
+            border: none; \
+            border-bottom: 1px solid black; \
+            text-align: center; \
+            }", 4);
+
+   style.sheet.insertRule(
+      "input[type=number]::-webkit-inner-spin-button,  \
+       input[type=number]::-webkit-outer-spin-button { \
+          -webkit-appearance: none; \
+          -moz-appearance: none; \
+          appearance: none; \
+          margin: 0;  \
+      }", 5);
+
+   style.sheet.insertRule(
+      "button {  \
+         background-color: #BF6D65; \
+         color: #311273; \
+         font-family: Georgia, serif; \
+         font-size: 0.8em; \
+         margin-left: 1em; \
+         }", 0);
+
+   style.sheet.insertRule(
+      "td {  \
+         background-color: #BF6D65; \
+         width: 6vw; \
+         height: 7vw; \
+         margin: 0.3vw; \
+         display: inline-block; \
+         text-align: center; \
+         font-size: 3em; \
+         line-height: 200%; \
+         font-weight: bold; \
+         }", 0);
 }
