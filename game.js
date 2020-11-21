@@ -154,7 +154,7 @@ function handleClicks(cardArray) {
                document.getElementById(cardArray[index[index.length - 1]].card).innerHTML = "";
                document.getElementById(cardArray[index[index.length - 1]].card).style.backgroundColor = "#BF6D65";
                cardArray[index[index.length - 1]].clicked = false;
-            }, 500);
+            }, 250);
          }
          cardsFlipped++;
       }
@@ -183,7 +183,7 @@ function endGame(cardsClicked) {
 
    // Create and style a final message
    let endMessage = document.createElement("h1");
-   endMessage.innerHTML = "You won in " + cardsClicked + " guesses! Thanks for playing!";
+   endMessage.innerHTML = "You won in " + cardsClicked + " guesses, Thanks for playing!";
    endMessage.style.margin = "10% auto";
    document.getElementById("game").appendChild(endMessage);
 }
@@ -260,13 +260,13 @@ function styles() {
    style.sheet.insertRule(
       "td {  \
          background-color: #BF6D65; \
-         width: 6vw; \
-         height: 7vw; \
-         margin: 0.3vw; \
+         width: 2.5em; \
+         height: 3em; \
+         margin: 0.2em; \
          display: inline-block; \
          text-align: center; \
          font-size: 3em; \
-         line-height: 200%; \
+         line-height: 300%; \
          font-weight: bold; \
          }", 0);
 }
