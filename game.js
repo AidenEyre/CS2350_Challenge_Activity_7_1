@@ -19,7 +19,7 @@ function runGame() {
   let numSymbols = checkInput();
   generateBoard(numSymbols);
   let cardArray = assignCards(numSymbols * 2);
-  cardsClicked = handleClicks(cardArray);
+  handleClicks(cardArray);
 }
 
 // gets the chosen number of symbols and sends the value to generateBoard()
@@ -167,7 +167,7 @@ function handleClicks(cardArray) {
       }
 
       if(cardArray.every(e => { return e.clicked === true})) {
-         return cardsFlipped;
+         endGame(cardsFlipped);
       }
     });
   }
@@ -181,4 +181,16 @@ function checkCards(cardArray, index1, index2) {
   } else {
     return false;
   }
+}
+
+// Function to end the game when player wins
+function endGame(cardsClicked) {
+   // Hide the game
+   document.querySelector("table").style.display = "none";
+
+   // Create and style a final message
+   let endMessage = document.createElement("h1");
+   endMessage.innerHTML = "You won in " + cardsClicked + " guesses! Thanks for playing!";
+   endMessage.style.margin = "auto";
+   document.getElementById("game").appendChild(endMessage);
 }
