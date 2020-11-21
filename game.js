@@ -19,10 +19,7 @@ function runGame() {
   let numSymbols = checkInput();
   generateBoard(numSymbols);
   let cardArray = assignCards(numSymbols * 2);
-  let GameWin = false;
-  handleClicks(cardArray);
-
-  console.log(cardArray);
+  cardsClicked = handleClicks(cardArray);
 }
 
 // gets the chosen number of symbols and sends the value to generateBoard()
@@ -138,6 +135,7 @@ function shuffleArray(symbolArray) {
 function handleClicks(cardArray) {
   // Keep track of the card indexes
   let index = [];
+  let cardsFlipped = 0;
 
   // Loop through the card array listening for clicks
   for (let i = 0; i < cardArray.length; i++) {
@@ -153,8 +151,8 @@ function handleClicks(cardArray) {
       }
 
       // If the cards don't match change the card styles back 
-      if (index.length > 1 && index.length % 2 == 0 &&
-         (checkCards(cardArray, index[index.length - 2], index[index.length - 1]) === false)) {
+      if (index.length > 1 && index.length % 2 == 0) {
+         if (checkCards(cardArray, index[index.length - 2], index[index.length - 1]) === false) {
             // Set a timeout so user can see both flipped cards for 500ms
             setTimeout(() => {
                document.getElementById(cardArray[index[index.length - 2]].card).innerHTML = "";
@@ -164,6 +162,12 @@ function handleClicks(cardArray) {
                document.getElementById(cardArray[index[index.length - 1]].card).style.backgroundColor = "gray";
                cardArray[index[index.length - 1]].clicked = false;
             }, 500);
+         }
+         cardsFlipped++;
+      }
+
+      if(cardArray.every(e => { return e.clicked === true})) {
+         return cardsFlipped;
       }
     });
   }
